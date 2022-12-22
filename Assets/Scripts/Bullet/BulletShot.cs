@@ -12,7 +12,7 @@ public class BulletShot : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-       rb.velocity = transform.forward * bulletSpeed * Time.deltaTime;        
+       transform.position += transform.forward * bulletSpeed * Time.deltaTime;        
     }
 
     private void OnBecameInvisible()
