@@ -536,7 +536,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1309169386}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.24, z: 0.51}
   m_LocalScale: {x: 0.62629914, y: 0.23482299, z: 0.41189808}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -875,6 +875,7 @@ GameObject:
   - component: {fileID: 1731075860}
   - component: {fileID: 1731075859}
   - component: {fileID: 1731075858}
+  - component: {fileID: 1731075861}
   m_Layer: 0
   m_Name: Isometric Camera
   m_TagString: MainCamera
@@ -948,6 +949,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 30, y: 45, z: 0}
+--- !u!114 &1731075861
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1731075857}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bec842e0de9edb94c871d436d9b6e066, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 1689157430}
+  smoothTime: 0.25
 --- !u!1 &2109007906
 GameObject:
   m_ObjectHideFlags: 0
