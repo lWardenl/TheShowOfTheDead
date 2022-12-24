@@ -617,10 +617,10 @@ GameObject:
   - component: {fileID: 1689157430}
   - component: {fileID: 1689157428}
   - component: {fileID: 1689157431}
+  - component: {fileID: 1689157435}
   - component: {fileID: 1689157432}
   - component: {fileID: 1689157433}
-  - component: {fileID: 1689157434}
-  - component: {fileID: 1689157435}
+  - component: {fileID: 1689157436}
   m_Layer: 0
   m_Name: UnderWater Character
   m_TagString: Untagged
@@ -731,20 +731,6 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
---- !u!114 &1689157434
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1689157426}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e208a6b08fb5574aa3dee35d3bbdab3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bulletPrefab: {fileID: 883519171018385425, guid: 4fb70daca5ef5394199615162a8675ab, type: 3}
-  shootPoint: {fileID: 2109007907}
 --- !u!136 &1689157435
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -759,6 +745,22 @@ CapsuleCollider:
   m_Height: 4.003459
   m_Direction: 1
   m_Center: {x: 0, y: 1.9787774, z: 0}
+--- !u!114 &1689157436
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1689157426}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ef6b15d42354c243be6413785b0ba85, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dashDistance: 5
+  dashSpeed: 20
+  dashDuration: 0.5
+  dashCoolDown: 1
 --- !u!1 &1731075857
 GameObject:
   m_ObjectHideFlags: 0
