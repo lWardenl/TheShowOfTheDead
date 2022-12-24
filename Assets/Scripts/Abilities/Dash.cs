@@ -21,7 +21,8 @@ public class Dash : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        HandleDash();
+        if(!PauseMenu.isPaused)
+            HandleDash();
     }
 
     private void HandleDash()
@@ -31,12 +32,7 @@ public class Dash : MonoBehaviour
             isDashing = true;
             canDash = false;
 
-            dashDirection = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
-
-            if(dashDirection == Vector3.zero)
-            {
-                dashDirection = new Vector3(0,0,transform.localPosition.z);
-            }
+            dashDirection = transform.forward;
 
             StartCoroutine(StopDashing());
         }
