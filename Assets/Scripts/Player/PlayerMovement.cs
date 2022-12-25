@@ -1,54 +1,75 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public float walkSpeed = 4f;
+    // Movement speed
+    [SerializeField] private float movementSpeed = 10f;
+    [SerializeField] private Animator anim;
 
-    Vector3 forward, right;
+    // Rigidbody component
+    private Rigidbody rb;
 
-    void Start()
+    private bool isAttacking => !(anim.GetCurrentAnimatorStateInfo(0).IsName("Idle") || anim.GetCurrentAnimatorStateInfo(0).IsName("Run"));
+
+    private void Awake()
     {
-
-        forward = Camera.main.transform.forward;
-        forward.y = 0;
-        forward = Vector3.Normalize(forward);
-
-        // -45 degrees from the world x axis
-        right = Quaternion.Euler(new Vector3(0, 90, 0)) * forward;
-
-
+        rb = GetComponent<Rigidbody>();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-
-        // Movement
-        if (Input.anyKey)
+        if(Time.timeScale != 0)
         {
-            Move();
+            HandleMovement();
+            HandleAnimation();
+        }
+    }
+
+    private void HandleMovement()
+    {
+        // Get input axes
+        float horizontalInput = Input.GetAxisRaw("Horizontal");
+        float verticalInput = Input.GetAxisRaw("Vertical");
+
+        // Get camera's forward direction
+        Vector3 cameraForward = Camera.main.transform.forward;
+        cameraForward.y = 0;
+
+        // Get camera's right direction
+        Vector3 cameraRight = Camera.main.transform.right;
+        cameraRight.y = 0;
+
+        // Calculate movement direction
+        Vector3 movementDirection = (cameraForward * verticalInput) + (cameraRight * horizontalInput);
+
+        // Normalize movement direction
+        movementDirection = movementDirection.normalized;
+
+        // Calculate movement velocity
+        Vector3 movementVelocity = movementDirection * movementSpeed * Time.deltaTime;
+
+        if (!isAttacking)
+        {
+            // Set rigidbody 
+            rb.velocity = movementVelocity;
+        } else
+        {
+            rb.velocity = Vector3.zero;
         }
 
+        // Rotate character towards movement direction
+        if (movementDirection.magnitude > 0.01f && !isAttacking)
+        {
+            transform.rotation = Quaternion.LookRotation(movementDirection, Vector3.up);
+        }
     }
 
-    void Move()
+    private void HandleAnimation()
     {
-
-        // Movement speed
-        Vector3 direction = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
-        Vector3 rightMovement = right * walkSpeed * Time.deltaTime * Input.GetAxis("Horizontal");
-        Vector3 upMovement = forward * walkSpeed * Time.deltaTime *Input.GetAxis("Vertical");
-
-        // Calculate what is forward
-        Vector3 heading = Vector3.Normalize(rightMovement + upMovement);
-
-        //rotation
-        transform.forward = heading;
-        //movement
-        transform.position += rightMovement;
-        transform.position += upMovement;
-
+        anim.SetFloat("Speed", rb.velocity.sqrMagnitude);
     }
+
 }
