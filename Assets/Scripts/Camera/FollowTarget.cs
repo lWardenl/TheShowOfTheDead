@@ -17,8 +17,13 @@ public class FollowTarget : MonoBehaviour
 
     private void LateUpdate()
     {
+        // Calculate target position
         Vector3 targetPosition = target.position + offset;
 
-        transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref currentVelocity, smoothTime);
+        // Calculate interpolation factor
+        float interpolationFactor = Time.deltaTime / (Time.deltaTime + smoothTime);
+
+        // Interpolate between current position and target position
+        transform.position = Vector3.Lerp(transform.position, targetPosition, interpolationFactor);
     }
 }

@@ -6,11 +6,14 @@ public class Dash : MonoBehaviour
 {
     [SerializeField] private float dashingDistance = 5f;
     [SerializeField] private float dashingTime = 0.5f;
+    [SerializeField] private float dashCooldown = 1f;
+    [SerializeField] private Animator playerAnim;
 
     private Rigidbody rb;
     private Vector3 dashDirection;
     private bool isDashing;
     private bool canDash = true;
+    
 
 
     private void Awake()
@@ -21,7 +24,7 @@ public class Dash : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(!PauseMenu.isPaused)
+        if(Time.timeScale != 0 && (playerAnim.GetCurrentAnimatorStateInfo(0).IsName("Idle") || playerAnim.GetCurrentAnimatorStateInfo(0).IsName("Run")))
             HandleDash();
     }
 
@@ -39,7 +42,7 @@ public class Dash : MonoBehaviour
 
         if(isDashing)
         {
-            rb.AddForce(dashDirection.normalized * dashingDistance, ForceMode.Impulse);
+            rb.AddForce(dashDirection.normalized * dashingDistance * Time.deltaTime, ForceMode.Impulse);
         }
     }
 
@@ -47,6 +50,7 @@ public class Dash : MonoBehaviour
     {
         yield return new WaitForSeconds(dashingTime);
         isDashing = false;
+        yield return new WaitForSeconds(dashCooldown);
         canDash = true;
     }
 

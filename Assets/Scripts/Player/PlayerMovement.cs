@@ -1,14 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class PlayerMovement : MonoBehaviour
 {
     // Movement speed
     [SerializeField] private float movementSpeed = 10f;
+    [SerializeField] private Animator anim;
 
     // Rigidbody component
     private Rigidbody rb;
+
+    private bool isAttacking => !(anim.GetCurrentAnimatorStateInfo(0).IsName("Idle") || anim.GetCurrentAnimatorStateInfo(0).IsName("Run"));
 
     private void Awake()
     {
@@ -17,8 +21,11 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        if(!PauseMenu.isPaused)
+        if(Time.timeScale != 0)
+        {
             HandleMovement();
+            HandleAnimation();
+        }
     }
 
     private void HandleMovement()
@@ -30,12 +37,10 @@ public class PlayerMovement : MonoBehaviour
         // Get camera's forward direction
         Vector3 cameraForward = Camera.main.transform.forward;
         cameraForward.y = 0;
-        cameraForward = cameraForward.normalized;
 
         // Get camera's right direction
         Vector3 cameraRight = Camera.main.transform.right;
         cameraRight.y = 0;
-        cameraRight = cameraRight.normalized;
 
         // Calculate movement direction
         Vector3 movementDirection = (cameraForward * verticalInput) + (cameraRight * horizontalInput);
@@ -44,23 +49,27 @@ public class PlayerMovement : MonoBehaviour
         movementDirection = movementDirection.normalized;
 
         // Calculate movement velocity
-        Vector3 movementVelocity = movementDirection * movementSpeed;
+        Vector3 movementVelocity = movementDirection * movementSpeed * Time.deltaTime;
 
-        // Set rigidbody velocity
-        if (movementDirection.magnitude > 0)
+        if (!isAttacking)
         {
+            // Set rigidbody 
             rb.velocity = movementVelocity;
-        }
-        else
+        } else
         {
             rb.velocity = Vector3.zero;
         }
 
         // Rotate character towards movement direction
-        if (movementDirection.magnitude > 0)
+        if (movementDirection.magnitude > 0.01f && !isAttacking)
         {
             transform.rotation = Quaternion.LookRotation(movementDirection, Vector3.up);
         }
+    }
+
+    private void HandleAnimation()
+    {
+        anim.SetFloat("Speed", rb.velocity.sqrMagnitude);
     }
 
 }
