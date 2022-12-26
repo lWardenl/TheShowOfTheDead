@@ -47,6 +47,7 @@ GameObject:
   - component: {fileID: 8725835056882540113}
   - component: {fileID: 8725835056882540114}
   - component: {fileID: 8725835056882540115}
+  - component: {fileID: 1063937923838483031}
   m_Layer: 0
   m_Name: Player_Medieval
   m_TagString: Player
@@ -203,6 +204,34 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   anim: {fileID: 2320266706183377575}
   attackInterval: 0.25
+  onClick:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8725835056882540117}
+        m_TargetAssemblyTypeName: PlayerAim, Assembly-CSharp
+        m_MethodName: Aim
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &1063937923838483031
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8725835056882540126}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 892017f571fecf649948a684dc8b3431, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  anim: {fileID: 2320266706183377575}
   onClick:
     m_PersistentCalls:
       m_Calls:
