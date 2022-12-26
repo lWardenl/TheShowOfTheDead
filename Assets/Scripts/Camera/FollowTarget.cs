@@ -10,8 +10,9 @@ public class FollowTarget : MonoBehaviour
     private Vector3 offset;
     private Vector3 currentVelocity = Vector3.zero;
 
-    private void Awake()
+    private void Start()
     {
+        target = GameObject.FindGameObjectWithTag("Player").transform;
         offset = transform.position - target.position;
     }
 
