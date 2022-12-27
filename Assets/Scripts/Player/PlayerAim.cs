@@ -11,7 +11,7 @@ public class PlayerAim : MonoBehaviour
     private Ray ray;
     private RaycastHit hit;
     private Vector3 direction;
-    private bool isAttacking => !(playerAnim.GetCurrentAnimatorStateInfo(0).IsName("Idle") || playerAnim.GetCurrentAnimatorStateInfo(0).IsName("Run"));
+    public bool isAttacking => !(playerAnim.GetCurrentAnimatorStateInfo(0).IsName("Idle") || playerAnim.GetCurrentAnimatorStateInfo(0).IsName("Run"));
     private bool isBlocking => (playerAnim.GetCurrentAnimatorStateInfo(0).IsName("Block"));
 
     private void Awake()
@@ -22,8 +22,8 @@ public class PlayerAim : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (isAttacking || isBlocking)
-            transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(direction), 0.3f);
+        /*if (isAttacking || isBlocking)
+            transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(direction), 0.3f);*/
     }
 
     public void Aim()
@@ -38,6 +38,8 @@ public class PlayerAim : MonoBehaviour
             direction = mousePosition - transform.position;
 
             direction.y = 0;
+
+            transform.rotation = Quaternion.LookRotation(direction);
         }
     }
 }

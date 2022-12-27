@@ -25,6 +25,7 @@ public class FollowTarget : MonoBehaviour
         float interpolationFactor = Time.deltaTime / (Time.deltaTime + smoothTime);
 
         // Interpolate between current position and target position
+
         transform.position = Vector3.Lerp(transform.position, targetPosition, interpolationFactor);
     }
 }
