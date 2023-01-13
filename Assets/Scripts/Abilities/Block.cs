@@ -10,7 +10,6 @@ public class Block : MonoBehaviour
 
     private bool isBlocking;
 
-    // Update is called once per frame
     void Update()
     {
         Blocking();
@@ -18,7 +17,7 @@ public class Block : MonoBehaviour
 
     private void Blocking()
     {
-        if(Input.GetMouseButtonDown(1)) 
+        if(Input.GetMouseButton(1)) 
         {
             isBlocking= true;
             anim.SetBool("isBlocking", isBlocking);
