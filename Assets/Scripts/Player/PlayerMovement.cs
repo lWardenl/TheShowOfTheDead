@@ -53,7 +53,6 @@ public class PlayerMovement : MonoBehaviour
 
         if (!isAttacking)
         {
-            // Set rigidbody 
             rb.velocity = movementVelocity;
         } else
         {
