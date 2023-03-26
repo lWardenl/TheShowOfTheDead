@@ -8,7 +8,7 @@ public class PlayerMovement : MonoBehaviour, IDamageable
     // Movement speed
     [SerializeField] private float movementSpeed = 10f;
     [SerializeField] private Animator anim;
-    [SerializeField] private float health;
+    [SerializeField] private float health = 100;
 
     // Rigidbody component
     private Rigidbody rb;
