@@ -785,6 +785,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4557948259011021874}
+  - component: {fileID: 1896164618}
+  - component: {fileID: 1896164617}
+  - component: {fileID: 919132148825427333}
+  - component: {fileID: 919132148825427332}
+  - component: {fileID: 919132148825427334}
   m_Layer: 0
   m_Name: Yeti (1)
   m_TagString: Untagged
@@ -809,6 +814,88 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!136 &1896164618
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3750026683634554504}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.92
+  m_Height: 2.58
+  m_Direction: 1
+  m_Center: {x: 0, y: 1.29, z: 0}
+--- !u!114 &1896164617
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3750026683634554504}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1431a13c5c046db4897fb34e57624c8e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerTransform: {fileID: 0}
+  moveSpeed: 100
+  rb: {fileID: 0}
+  health: 100
+  damage: 50
+  bulletDamage: 25
+  playerAim: {fileID: 0}
+--- !u!54 &919132148825427333
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3750026683634554504}
+  serializedVersion: 2
+  m_Mass: 0.0000001
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 112
+  m_CollisionDetection: 0
+--- !u!136 &919132148825427332
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3750026683634554504}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.92
+  m_Height: 2.58
+  m_Direction: 1
+  m_Center: {x: 0, y: 1.29, z: 0}
+--- !u!114 &919132148825427334
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3750026683634554504}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1431a13c5c046db4897fb34e57624c8e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerTransform: {fileID: 0}
+  moveSpeed: 100
+  rb: {fileID: 919132148825427333}
+  health: 100
+  damage: 50
+  bulletDamage: 25
+  playerAim: {fileID: 0}
 --- !u!1 &3866500395675693083
 GameObject:
   m_ObjectHideFlags: 0
