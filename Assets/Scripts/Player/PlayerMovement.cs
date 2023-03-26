@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovement : MonoBehaviour, IDamageable
 {
     // Movement speed
     [SerializeField] private float movementSpeed = 10f;
     [SerializeField] private Animator anim;
+    [SerializeField] private float health;
 
     // Rigidbody component
     private Rigidbody rb;
@@ -71,4 +72,14 @@ public class PlayerMovement : MonoBehaviour
         anim.SetFloat("Speed", rb.velocity.sqrMagnitude);
     }
 
+    public void TakeDamage(int damage)
+    {
+        health -= damage;
+
+        if(health <= 0)
+        {
+            health = 0;
+            Destroy(gameObject);
+        }
+    }
 }

@@ -2,12 +2,17 @@ using UnityEngine;
 using StateManagment;
 using Unity.VisualScripting;
 
-public class EnemyState : MonoBehaviour, IDamageable
+public class EnemyState : MonoBehaviour
 {
     [SerializeField] private Transform playerTransform;
     [SerializeField] private float moveSpeed;
     [SerializeField] private Rigidbody rb;
     [SerializeField] private int health = 100;
+    [SerializeField] int damage = 50;
+    [SerializeField] int bulletDamage = 25;
+
+    [SerializeField] private PlayerAim playerAim;
+
 
     Vector3 direction;
 
@@ -22,33 +27,25 @@ public class EnemyState : MonoBehaviour, IDamageable
         rb = GetComponent<Rigidbody>();
         //Add a state (first) with a tick function being FirstStateTick
         machine.AddState(myStates.Chasing, FirstStateTick, true);
-
-        //Add a state (second) with a tick function written as a lambda expression
         machine.AddState(myStates.Attacking, SecondStateTick);
-
         machine.AddState(myStates.Dying, ThirdStateTick);
+
 
         //Add a transition from state FIRST to SECOND with the condition written as a lambda expression
         //(Lambda expressions are especially useful for transition conditions)
         machine.AddTransition(myStates.Chasing, myStates.Attacking, () => Vector3.Distance(playerTransform.position,transform.position) < 4f);
         machine.AddTransition(myStates.Attacking, myStates.Chasing, () => Vector3.Distance(playerTransform.position,transform.position) > 4f);
+        machine.AddTransition(myStates.Attacking, myStates.Dying, () => health <= 0f);
+        machine.AddTransition(myStates.Chasing, myStates.Dying, () => health <= 0f);
     }
 
     private void Start()
     {
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
+        playerAim = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerAim>();
     }
 
-    public void TakeDamage(int damage)
-    {
-        health -= damage;
-
-        if(health <= 0)
-        {
-            health = 0;
-            Destroy(gameObject);
-        }
-    }
+    
 
     void FirstStateTick()
     {
@@ -65,7 +62,8 @@ public class EnemyState : MonoBehaviour, IDamageable
 
     void ThirdStateTick()
     {
-
+        health = 0;
+        Destroy(gameObject);
     }
 
     void FixedUpdate()
@@ -74,5 +72,18 @@ public class EnemyState : MonoBehaviour, IDamageable
         machine.Tick();
     }
 
-    
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "Sword" && playerAim.isAttacking)
+        {
+            health -= damage;
+        }
+
+        if (other.gameObject.tag == "Bullet")
+        {
+            health -= bulletDamage;
+        }
+
+    }
 }
