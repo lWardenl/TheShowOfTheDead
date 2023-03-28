@@ -2,12 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovement : MonoBehaviour, IDamageable
 {
     // Movement speed
     [SerializeField] private float movementSpeed = 10f;
     [SerializeField] private Animator anim;
+    [SerializeField] private float health = 100;
 
     // Rigidbody component
     private Rigidbody rb;
@@ -53,7 +55,6 @@ public class PlayerMovement : MonoBehaviour
 
         if (!isAttacking)
         {
-            // Set rigidbody 
             rb.velocity = movementVelocity;
         } else
         {
@@ -72,4 +73,15 @@ public class PlayerMovement : MonoBehaviour
         anim.SetFloat("Speed", rb.velocity.sqrMagnitude);
     }
 
+    public void TakeDamage(int damage)
+    {
+        health -= damage;
+
+        if(health <= 0)
+        {
+            health = 0;
+            Destroy(gameObject);
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
+    }
 }

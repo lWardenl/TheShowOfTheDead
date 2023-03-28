@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor.VersionControl;
 using UnityEngine;
 
 public class FollowTarget : MonoBehaviour
@@ -10,8 +7,9 @@ public class FollowTarget : MonoBehaviour
     private Vector3 offset;
     private Vector3 currentVelocity = Vector3.zero;
 
-    private void Awake()
+    private void Start()
     {
+        target = GameObject.FindGameObjectWithTag("Player").transform;
         offset = transform.position - target.position;
     }
 
@@ -24,6 +22,7 @@ public class FollowTarget : MonoBehaviour
         float interpolationFactor = Time.deltaTime / (Time.deltaTime + smoothTime);
 
         // Interpolate between current position and target position
+
         transform.position = Vector3.Lerp(transform.position, targetPosition, interpolationFactor);
     }
 }
