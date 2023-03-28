@@ -9,13 +9,13 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        NextLevel();
-    }
-    void NextLevel()
-    {
-        if(Input.GetKeyDown(KeyCode.N)) 
+        if(Input.GetKeyDown(KeyCode.N))
         {
-            SceneManager.LoadScene((SceneManager.GetActiveScene().buildIndex + 1) % SceneManager.sceneCountInBuildSettings);
+            NextLevel();
         }
+    }
+    public void NextLevel()
+    {
+        SceneManager.LoadScene((SceneManager.GetActiveScene().buildIndex + 1) % SceneManager.sceneCountInBuildSettings);
     }
 }

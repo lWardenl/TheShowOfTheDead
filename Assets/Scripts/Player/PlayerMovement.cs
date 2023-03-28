@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour, IDamageable
 {
@@ -80,6 +81,7 @@ public class PlayerMovement : MonoBehaviour, IDamageable
         {
             health = 0;
             Destroy(gameObject);
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
     }
 }
