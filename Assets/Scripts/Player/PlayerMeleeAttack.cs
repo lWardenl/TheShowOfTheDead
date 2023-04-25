@@ -9,6 +9,7 @@ public class PlayerMeleeAttack : MonoBehaviour
     [SerializeField] private float attackInterval;
     [SerializeField] private UnityEvent onClick;
 
+
     private float attackResetTimer = 0;
     private bool _isAttacking;
     private bool isAttacking { 
@@ -34,6 +35,7 @@ public class PlayerMeleeAttack : MonoBehaviour
         {
             Attack();
         }
+
     }
 
     void Attack()

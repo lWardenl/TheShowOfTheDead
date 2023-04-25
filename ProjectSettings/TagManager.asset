@@ -8,6 +8,8 @@ TagManager:
   - Damage
   - Sword
   - Bullet
+  - Health
+  - EnemyAttack
   layers:
   - Default
   - TransparentFX

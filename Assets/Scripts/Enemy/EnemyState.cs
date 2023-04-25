@@ -1,5 +1,7 @@
 using UnityEngine;
 using StateManagment;
+using UnityEngine.AI;
+using System.Threading;
 
 public class EnemyState : MonoBehaviour
 {
@@ -9,10 +11,12 @@ public class EnemyState : MonoBehaviour
     [SerializeField] private int health = 100;
     [SerializeField] int damage = 50;
     [SerializeField] int bulletDamage = 25;
-
     [SerializeField] private PlayerAim playerAim;
+    [SerializeField] private Animator anim;
+    [SerializeField] private NavMeshAgent agent;
 
-
+    private bool isAttacking;
+    private float timeOut;
     Vector3 direction;
 
     private enum myStates { Chasing, Attacking, Dying };
@@ -22,7 +26,7 @@ public class EnemyState : MonoBehaviour
 
     void Awake()
     {
-
+        agent = GetComponent<NavMeshAgent>();
         rb = GetComponent<Rigidbody>();
         //Add a state (first) with a tick function being FirstStateTick
         machine.AddState(myStates.Chasing, FirstStateTick, true);
@@ -40,6 +44,7 @@ public class EnemyState : MonoBehaviour
 
     private void Start()
     {
+        anim = GetComponentInChildren<Animator>();
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
         playerAim = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerAim>();
     }
@@ -48,15 +53,20 @@ public class EnemyState : MonoBehaviour
 
     void FirstStateTick()
     {
-        direction = Vector3.Scale((playerTransform.position - transform.position), new Vector3(1, 0, 1)).normalized;
-        rb.velocity = direction * moveSpeed * Time.fixedDeltaTime;
+        isAttacking = false;
 
-        transform.rotation = Quaternion.LookRotation(direction, Vector3.up);
+        agent.SetDestination(playerTransform.position - (playerTransform.position - transform.position).normalized * 4f);
+
+        anim.SetFloat("Speed", moveSpeed);
+        anim.SetBool("isAttacking", isAttacking);
     }
 
     void SecondStateTick()
     {
+        anim.SetFloat("Speed", moveSpeed);
         rb.velocity = Vector3.zero;
+        isAttacking = true;
+        anim.SetBool("isAttacking", isAttacking);
     }
 
     void ThirdStateTick()
@@ -71,17 +81,26 @@ public class EnemyState : MonoBehaviour
         machine.Tick();
     }
 
+    private void Update()
+    {
+        if (timeOut > 0) { timeOut -= Time.deltaTime; }
+        else if (timeOut < 0) { timeOut = 0; }
+    }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Sword" && playerAim.isAttacking)
+        if (other.gameObject.tag == "Sword" && playerAim.isAttacking && timeOut == 0)
         {
+            timeOut = 1.5f;
             health -= damage;
+            anim.SetTrigger("isHit");
+            print("damaged");
         }
 
         if (other.gameObject.tag == "Bullet")
         {
             health -= bulletDamage;
+            anim.SetTrigger("isHit");
         }
 
     }
