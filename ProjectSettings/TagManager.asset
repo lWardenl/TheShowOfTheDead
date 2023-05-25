@@ -10,6 +10,8 @@ TagManager:
   - Bullet
   - Health
   - EnemyAttack
+  - GameMusic
+  - SceneManager
   layers:
   - Default
   - TransparentFX

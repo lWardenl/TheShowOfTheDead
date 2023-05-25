@@ -1,7 +1,6 @@
 using UnityEngine;
 using StateManagment;
 using UnityEngine.AI;
-using System.Threading;
 
 public class EnemyState : MonoBehaviour
 {
@@ -21,21 +20,19 @@ public class EnemyState : MonoBehaviour
 
     private enum myStates { Chasing, Attacking, Dying };
 
-    //You can use anything you want as the state definition
+
     StateMachine<myStates> machine = new StateMachine<myStates>();
 
     void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
         rb = GetComponent<Rigidbody>();
-        //Add a state (first) with a tick function being FirstStateTick
+
         machine.AddState(myStates.Chasing, FirstStateTick, true);
         machine.AddState(myStates.Attacking, SecondStateTick);
         machine.AddState(myStates.Dying, ThirdStateTick);
 
 
-        //Add a transition from state FIRST to SECOND with the condition written as a lambda expression
-        //(Lambda expressions are especially useful for transition conditions)
         machine.AddTransition(myStates.Chasing, myStates.Attacking, () => Vector3.Distance(playerTransform.position,transform.position) < 4f);
         machine.AddTransition(myStates.Attacking, myStates.Chasing, () => Vector3.Distance(playerTransform.position,transform.position) > 4f);
         machine.AddTransition(myStates.Attacking, myStates.Dying, () => health <= 0f);
