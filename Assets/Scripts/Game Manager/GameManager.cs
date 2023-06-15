@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
 
+
     private void Update()
     {
         if(Input.GetKeyDown(KeyCode.N))
@@ -18,4 +19,6 @@ public class GameManager : MonoBehaviour
     {
         SceneController.instance.NextLevel();
     }
+
+
 }

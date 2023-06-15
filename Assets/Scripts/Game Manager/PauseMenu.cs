@@ -6,7 +6,6 @@ using TMPro;
 public class PauseMenu : MonoBehaviour
 {
     [SerializeField] private GameObject pauseMenu;
-
     public static bool isPaused =>  Time.timeScale == 0;
 
 
@@ -52,9 +51,5 @@ public class PauseMenu : MonoBehaviour
         
     }
 
-    public void Settings()
-    {
-
-    }
 
 }
